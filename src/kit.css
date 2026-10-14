@@ -1,0 +1,120 @@
+/* Interactive kit, restyled into the v2 .card shell. Animations key off the
+   engine's reveal class (.card.rv) so they play exactly when v2 reveals a card. */
+
+/* ---- map ---- */
+.c-map .mapbox{position:relative;height:300px;margin:12px -16px 0;overflow:hidden;background:#dde3e6}
+.c-map .maplive{position:absolute;inset:0;z-index:2}
+.c-map .schem{position:absolute;inset:0;z-index:1;width:100%;height:100%}
+.c-map .mapbox.ready .schem{opacity:0;transition:opacity .4s}
+.c-map .mapbox.fallback .maplive{display:none}
+.c-map .leg{display:flex;justify-content:center;gap:16px;margin-top:12px}
+.c-map .leg span{display:flex;align-items:center;gap:6px;font-size:13px;color:#616460}
+.c-map .leg i{width:7px;height:7px;border-radius:50%}
+.c-map .attr{font-size:10px;line-height:14px;color:#8e918e;margin-top:6px;text-align:right}
+.kit-pulse{border-radius:50%;background:#800080;border:2px solid #fff;
+  box-shadow:0 0 0 3px rgba(128,0,128,.25);animation:kitp 2.2s infinite}
+@keyframes kitp{0%{box-shadow:0 0 0 2px rgba(128,0,128,.35)}70%{box-shadow:0 0 0 12px rgba(128,0,128,0)}100%{box-shadow:0 0 0 2px rgba(128,0,128,0)}}
+.kit-diamond span{display:block;width:12px;height:12px;background:#ec4837;transform:rotate(45deg);
+  border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.leaflet-popup-content-wrapper{border-radius:12px!important;box-shadow:0 8px 24px rgba(0,0,0,.18)!important}
+.leaflet-popup-content{font-family:'Inter','Noto Sans HK',sans-serif!important;font-size:13px!important;line-height:18px!important;margin:10px 14px!important}
+.leaflet-container{font-family:'Inter','Noto Sans HK',sans-serif!important}
+
+/* ---- animated chart (upgrades v2's .c-numbers .chart) ---- */
+.c-numbers .chart .bar{transform:scaleY(0);transform-origin:bottom;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.card.rv .chart .bar{transform:scaleY(1)}
+.c-numbers .chart .col:nth-child(2) .bar{transition-delay:.07s}
+.c-numbers .chart .col:nth-child(3) .bar{transition-delay:.14s}
+.c-numbers .chart .col:nth-child(4) .bar{transition-delay:.21s}
+.c-numbers .chart .col:nth-child(5) .bar{transition-delay:.28s}
+.c-numbers .chart .col{cursor:pointer;position:relative}
+.kit-tip{position:absolute;left:50%;transform:translate(-50%,-6px);bottom:100%;z-index:5;
+  background:#141613;color:#fff;border-radius:8px;padding:5px 9px;font-size:12px;font-weight:600;
+  white-space:nowrap;pointer-events:none}
+
+/* ---- signal gauges ---- */
+.c-signal .sig{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(67,71,66,.1);cursor:pointer}
+.c-signal .sig:last-of-type{border-bottom:0}
+.c-signal .sig svg{flex:none;width:44px;height:44px;transform:rotate(-90deg)}
+.c-signal .tr{fill:none;stroke:#ecedec;stroke-width:5}
+.c-signal .vl{fill:none;stroke:#800080;stroke-width:5;stroke-linecap:round;
+  stroke-dasharray:113;stroke-dashoffset:113;transition:stroke-dashoffset 1s cubic-bezier(.2,.7,.2,1)}
+.c-signal .sig.hot .vl{stroke:#ec4837}
+.card.rv .sig .vl{stroke-dashoffset:var(--o,113)}
+.c-signal .sb{flex:1;min-width:0}
+.c-signal .sb b{display:block;font-size:14px;line-height:19px;font-weight:600;color:#1d201d}
+.c-signal .note{font-size:12.5px;line-height:17px;color:#616460;margin-top:3px;display:none}
+.c-signal .sig.open .note{display:block}
+.c-signal .pc{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#1d201d}
+
+/* ---- timeline ---- */
+.c-tl .row{display:flex;gap:12px;position:relative;padding-bottom:14px}
+.c-tl .row:last-of-type{padding-bottom:0}
+.c-tl .row::before{content:"";position:absolute;left:47px;top:20px;bottom:-2px;width:1.5px;background:#d6d7d5}
+.c-tl .row:last-of-type::before{display:none}
+.c-tl .t{flex:none;width:40px;font-size:12px;line-height:18px;font-weight:600;color:#616460;padding-top:1px}
+.c-tl .d{position:absolute;left:43px;top:5px;width:9px;height:9px;border-radius:50%;background:#fff;border:2.5px solid #800080}
+.c-tl .x{padding-left:24px;font-size:14px;line-height:20px;color:#1d201d}
+.c-tl .schips{display:flex;gap:6px;margin-bottom:14px}
+.c-tl .schips span{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;background:#ecedec;color:#616460}
+.c-tl .schips span.on{background:#fdeceb;color:#ec4837}
+.c-tl .schips span.on i{width:7px;height:7px;border-radius:50%;background:#ec4837;animation:kitblink 1.6s infinite}
+@keyframes kitblink{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ---- risk ---- */
+.c-risk2 .rrow{display:flex;gap:10px;align-items:flex-start;padding:8px 0}
+.c-risk2 .lv{flex:none;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700;margin-top:1px}
+.c-risk2 .lv-high{background:#fdeceb;color:#ec4837}
+.c-risk2 .lv-med{background:#fbf1e7;color:#c56a3f}
+.c-risk2 .lv-low{background:#e7f4ec;color:#2f8a58}
+.c-risk2 .rt b{display:block;font-size:14px;line-height:19px;color:#1d201d}
+.c-risk2 .rt span{font-size:12.5px;line-height:17px;color:#616460}
+
+/* ---- poll ---- */
+.c-poll .prow{display:block;padding:10px 0;cursor:pointer}
+.c-poll .pt{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.c-poll .pt span{font-size:14px;font-weight:600;color:#1d201d}
+.c-poll .pv{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#800080}
+.c-poll .prow.alt .pv{color:#667dff}
+.c-poll .tk{display:block;height:10px;border-radius:999px;background:#ecedec;overflow:hidden}
+.c-poll .tk i{display:block;height:100%;width:var(--v,0%);border-radius:999px;background:#800080;
+  transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.c-poll .prow.alt .tk i{background:#667dff;transition-delay:.15s}
+.card.rv .tk i{transform:scaleX(1)}
+.c-poll .pc2{display:block;margin-top:6px;font-size:12.5px;line-height:18px;color:#616460}
+
+/* ---- ground photo strip ---- */
+.c-ground .disp{padding:9px 0;border-bottom:1px solid rgba(67,71,66,.1)}
+.c-ground .disp:last-of-type{border-bottom:0}
+.c-ground .disp b{display:block;font-size:12px;font-weight:700;color:#800080;margin-bottom:3px}
+.c-ground .disp p{font-size:14px;line-height:20px;color:#1d201d}
+.c-ground .strip{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:4px;max-width:100%}
+.c-ground .strip span{flex:none;width:156px;height:104px;border-radius:10px;background-size:cover;background-position:center}
+
+/* ---- inline transparency popover (typed; design from the single-file demo) ---- */
+.kw,.chip,.chip-i{cursor:pointer}
+.kit-pop{position:absolute;z-index:60;width:300px;max-width:calc(100% - 16px);background:#1c1f1c;color:#fff;
+  padding:14px 15px 15px;border-radius:16px;box-shadow:0 16px 46px rgba(0,0,0,.42);display:none;
+  font-family:'Inter','Noto Sans HK',sans-serif;font-size:13px;line-height:1.46}
+.kit-pop.on{display:block}
+.kit-pop .hd2{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kit-pop .lbl{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase}
+.kit-pop .lbl .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.kit-pop .x{background:none;border:0;color:rgba(255,255,255,.55);font-size:19px;line-height:1;
+  cursor:pointer;padding:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center}
+.kit-pop .row{margin:0 0 8px;color:rgba(255,255,255,.86)}
+.kit-pop .row:last-of-type{margin-bottom:0}
+.kit-pop .row b{font-weight:600;color:#fff}
+.kit-pop .def{margin:0;color:rgba(255,255,255,.9)}
+.kit-pop .src{margin:10px 0 0;color:rgba(255,255,255,.62);font-size:12px}
+.kit-pop .src .pchip{color:#fff;font-weight:500;white-space:nowrap}
+.kit-pop .src .pchip .cd{display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:currentColor;margin-right:5px;vertical-align:1px;opacity:.85}
+.kit-pop .save{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:#fff;color:#1c1f1c;
+  border:0;border-radius:999px;padding:8px 13px;font-family:inherit;font-weight:600;font-size:12px;cursor:pointer}
+.kit-pop .save:disabled{opacity:.75;cursor:default}
+.kit-pop.t-keyword .lbl{color:#c6a4ff}
+.kit-pop.t-confirmed .lbl{color:#7fd39a}
+.kit-pop.t-disputed .lbl{color:#f2867f}
+.kit-pop.t-analysis .lbl{color:#8ab6ff}

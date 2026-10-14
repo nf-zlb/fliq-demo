@@ -1,0 +1,29 @@
+/* Onboarding tour: spotlight coach-marks over the live UI.
+   Sits at z 16-18: above stage content (<=13), below scrim/vsheet/sheets (20/21/30)
+   so the sheets the tour asks you to open render above the shade. */
+#nf-tour{position:absolute;inset:0;z-index:16;display:none;font-family:inherit}
+#nf-tour.on{display:block}
+.tour-shade{position:absolute;background:rgba(10,14,10,.55);pointer-events:auto;transition:all .3s ease}
+.tour-ring{position:absolute;border:2px solid #fff;border-radius:14px;
+  box-shadow:0 0 0 4px rgba(255,255,255,.22),0 6px 24px rgba(0,0,0,.35);
+  pointer-events:none;transition:all .3s ease}
+.tour-tip{position:absolute;width:300px;background:#fff;border-radius:16px;padding:14px 16px 12px;
+  box-shadow:0 12px 40px rgba(0,0,0,.3);pointer-events:auto;transition:top .3s ease,left .3s ease}
+.tour-tip .tt-title{font-size:15px;font-weight:700;line-height:1.35;color:#141613;margin:0 0 4px}
+.tour-tip .tt-text{font-size:13px;line-height:1.5;color:#4a4f4a;margin:0}
+.tour-tip .tt-text b{color:#0a7d43}
+.tour-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
+.tour-count{font-size:11px;font-weight:600;color:#8a908a;flex:none;font-variant-numeric:tabular-nums}
+.tour-btns{display:flex;align-items:center;gap:8px}
+.tour-hint{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#0a7d43;white-space:nowrap}
+.tour-hint i{width:7px;height:7px;border-radius:99px;background:#0fae5f;animation:tourPulse 1.2s ease infinite}
+@keyframes tourPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.45}}
+.tour-skip{font-size:12px;color:#8a908a;background:none;border:0;padding:6px 2px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.tour-next{font-size:13px;font-weight:600;color:#fff;background:#141613;border:0;border-radius:999px;padding:8px 16px;cursor:pointer;font-family:inherit;white-space:nowrap}
+/* key-term popover must clear the shade so the "tap a term" step shows its result */
+.kit-pop{z-index:18!important}
+/* replay fab on the feed */
+#tour-fab{position:absolute;right:14px;bottom:24px;z-index:15;width:34px;height:34px;border-radius:99px;
+  background:rgba(20,22,19,.82);color:#fff;font-size:15px;font-weight:700;border:0;cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.25);display:none;font-family:inherit;line-height:1}
+#tour-fab.show{display:block}

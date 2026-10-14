@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 320">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#26323e"/>
+      <stop offset="1" stop-color="#3a4856"/>
+    </linearGradient>
+  </defs>
+  <rect width="375" height="320" fill="url(#sky)"/>
+  <!-- water -->
+  <rect y="268" width="375" height="52" fill="#1d2833"/>
+  <path d="M0 272 H375" stroke="#4c6a80" stroke-width="1.5" stroke-dasharray="10 8" opacity=".5"/>
+  <!-- crane -->
+  <g stroke="#8e9aa6" stroke-width="5" fill="none">
+    <path d="M84 268 V84"/>
+    <path d="M84 84 L232 84"/>
+    <path d="M84 130 L150 84"/>
+    <path d="M226 84 V120"/>
+  </g>
+  <rect x="216" y="118" width="20" height="14" fill="#8e9aa6"/>
+  <!-- container stacks -->
+  <g>
+    <rect x="120" y="238" width="72" height="30" rx="2" fill="#800080"/>
+    <rect x="196" y="238" width="72" height="30" rx="2" fill="#5a616e"/>
+    <rect x="272" y="238" width="72" height="30" rx="2" fill="#ab5c2b"/>
+    <rect x="158" y="206" width="72" height="30" rx="2" fill="#3f7a54"/>
+    <rect x="234" y="206" width="72" height="30" rx="2" fill="#800080"/>
+    <rect x="196" y="174" width="72" height="30" rx="2" fill="#c56a3f"/>
+    <rect x="216" y="132" width="20" height="42" fill="none" stroke="#8e9aa6" stroke-width="2" stroke-dasharray="4 4"/>
+  </g>
+  <!-- container ridges -->
+  <g stroke="#00000030" stroke-width="2">
+    <path d="M132 238 v30 M144 238 v30 M156 238 v30 M168 238 v30 M180 238 v30"/>
+    <path d="M208 238 v30 M220 238 v30 M232 238 v30 M244 238 v30 M256 238 v30"/>
+    <path d="M284 238 v30 M296 238 v30 M308 238 v30 M320 238 v30 M332 238 v30"/>
+    <path d="M170 206 v30 M182 206 v30 M194 206 v30 M206 206 v30 M218 206 v30"/>
+    <path d="M246 206 v30 M258 206 v30 M270 206 v30 M282 206 v30 M294 206 v30"/>
+    <path d="M208 174 v30 M220 174 v30 M232 174 v30 M244 174 v30 M256 174 v30"/>
+  </g>
+  <!-- 50% stamp -->
+  <g transform="rotate(-8 96 150)">
+    <rect x="40" y="118" width="118" height="58" rx="8" fill="none" stroke="#ec4837" stroke-width="4"/>
+    <text x="99" y="158" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="34" font-weight="900" fill="#ec4837">50%</text>
+  </g>
+</svg>

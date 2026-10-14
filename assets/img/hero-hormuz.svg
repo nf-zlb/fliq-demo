@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 320">
+  <defs>
+    <radialGradient id="glow" cx="0.62" cy="0.58" r="0.5">
+      <stop offset="0" stop-color="#ff8a5c" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#c2452f" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#c2452f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1b2a"/>
+      <stop offset="1" stop-color="#16283c"/>
+    </linearGradient>
+  </defs>
+  <rect width="375" height="320" fill="url(#sea)"/>
+  <!-- northern landmass (Iran coast) -->
+  <path d="M0 0 H375 V96 C330 108 300 96 268 120 C244 138 236 128 214 150 C196 168 178 158 160 148 C130 132 96 150 60 138 C36 130 14 140 0 132 Z" fill="#1f3145"/>
+  <!-- southern landmass (Arabian peninsula) -->
+  <path d="M0 320 H375 V266 C352 250 336 262 312 246 C296 236 282 246 262 238 C238 228 214 244 190 236 C160 226 130 250 96 242 C60 234 28 254 0 246 Z" fill="#1c2c3e"/>
+  <!-- musandam tip narrowing the strait -->
+  <path d="M262 238 C258 220 252 210 240 200 C252 196 262 204 270 214 C278 224 276 232 274 240 Z" fill="#1c2c3e"/>
+  <!-- strait glow -->
+  <circle cx="238" cy="188" r="118" fill="url(#glow)"/>
+  <!-- shipping lane dashes -->
+  <path d="M40 196 C120 176 190 196 236 188 C282 180 330 196 372 186" fill="none" stroke="#8fb3cf" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="8 7"/>
+  <path d="M30 214 C120 200 200 214 246 204" fill="none" stroke="#8fb3cf" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="8 7"/>
+  <!-- strike points -->
+  <g fill="#ff9a85">
+    <circle cx="150" cy="92" r="4.5" opacity="0.95"/>
+    <circle cx="196" cy="120" r="3.5" opacity="0.8"/>
+    <circle cx="120" cy="118" r="3" opacity="0.7"/>
+    <circle cx="252" cy="150" r="4" opacity="0.9"/>
+    <circle cx="292" cy="104" r="3" opacity="0.65"/>
+  </g>
+  <!-- chokepoint diamond -->
+  <rect x="231" y="181" width="14" height="14" transform="rotate(45 238 188)" fill="#ec4837" stroke="#fff" stroke-width="2.5"/>
+</svg>
