@@ -13,11 +13,35 @@
     var map = L.map(box.querySelector('.maplive'), { scrollWheelZoom:false, attributionControl:false,
       zoomControl:true, center:cfg.center, zoom:cfg.zoom, maxZoom:11, minZoom:3, dragging:!L.Browser.mobile });
     var loaded = false;
-    var tl = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { subdomains:'abcd', maxZoom:12 });
-    tl.on('load', function(){ loaded = true; box.classList.add('ready'); });
-    tl.on('tileerror', function(){ if(!loaded) box.classList.add('fallback'); });
-    setTimeout(function(){ if(!loaded) box.classList.add('fallback'); }, 6000);
-    tl.addTo(map);
+    /* Basemap providers, tried in order. CARTO's light_all tiles (the original
+       choice) now need an API key and come back as "API KEY REQUIRED" images,
+       which Leaflet counts as a successful load — so it is gone, not merely
+       demoted. Esri's light-gray canvas is the closest keyless match to that
+       look; plain OSM is the fallback if Esri is unreachable. Each entry also
+       carries the credit line the card shows for it. */
+    var PROVIDERS = [
+      { url:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+        opts:{ maxZoom:16 }, credit:'\u00a9 OpenStreetMap contributors \u00b7 Tiles \u00a9 Esri' },
+      { url:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        opts:{ maxZoom:19 }, credit:'\u00a9 OpenStreetMap contributors' }
+    ];
+    var attr = box.parentNode.querySelector('.attr');
+    var tl = null;
+    function useProvider(n){
+      if(tl){ map.removeLayer(tl); tl = null; }
+      var pv = PROVIDERS[n];
+      if(!pv){ box.classList.add('fallback'); return; }   /* every provider failed: schematic stays */
+      if(attr) attr.textContent = pv.credit;
+      var errs = 0;
+      tl = L.tileLayer(pv.url, pv.opts);
+      tl.on('load', function(){ loaded = true; box.classList.add('ready'); });
+      /* a provider is given up on only before anything from it has shown;
+         one dropped tile after that is just a dropped tile */
+      tl.on('tileerror', function(){ if(!loaded && ++errs >= 2) useProvider(n + 1); });
+      tl.addTo(map);
+    }
+    useProvider(0);
+    setTimeout(function(){ if(!loaded) box.classList.add('fallback'); }, 8000);
     var pts = [];
     (cfg.zones || []).forEach(function(z){
       pts.push(z[0]);

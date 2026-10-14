@@ -128,7 +128,7 @@ ${vparaDiv(d.para)}</div>`,
   map: d => `<div class="card c-map">${hd("numbers", d.title || "Map")}
 <div class="mapbox" data-map="${d.mapKey}">${d.schem}<div class="maplive"></div></div>
 <div class="leg">${d.legend.map(l => `<span><i style="background:${l[0]}"></i>${l[1]}</span>`).join("")}</div>
-<p class="attr">© OpenStreetMap contributors © CARTO</p>
+<p class="attr">© OpenStreetMap contributors · Tiles © Esri</p>
 ${vparaDiv(d.para)}</div>`,
 
   numbers2: d => `<div class="card c-numbers">${hd("numbers", d.title || "Numbers")}

@@ -1155,7 +1155,7 @@ html,body{touch-action:manipulation;overscroll-behavior:none;-webkit-text-size-a
 </svg></div><div class="hd-t">Map</div></div>
 <div class="mapbox" data-map="gulf"><svg class="schem" viewBox="0 0 335 300" xmlns="http://www.w3.org/2000/svg"><rect width="335" height="300" fill="#dfe7ea"/><path d="M0 0 H335 V88 C300 100 270 90 244 112 C222 128 200 120 178 132 C150 146 118 132 84 140 C50 148 20 138 0 128 Z" fill="#eceeea"/><path d="M0 300 H335 V246 C310 234 288 244 266 232 C246 222 226 232 202 224 C172 214 140 232 104 226 C70 220 30 234 0 228 Z" fill="#eceeea"/><circle cx="130" cy="80" r="6" fill="#800080" opacity=".55"/><circle cx="175" cy="106" r="5" fill="#800080" opacity=".5"/><circle cx="228" cy="142" r="6" fill="#800080" opacity=".55"/><rect x="206" y="170" width="12" height="12" transform="rotate(45 212 176)" fill="#ec4837" stroke="#fff" stroke-width="2"/></svg><div class="maplive"></div></div>
 <div class="leg"><span><i style="background:#800080"></i>Strike zones</span><span><i style="background:#ec4837"></i>Chokepoint</span></div>
-<p class="attr">© OpenStreetMap contributors © CARTO</p>
+<p class="attr">© OpenStreetMap contributors · Tiles © Esri</p>
 <div class="para"><span class="vv vp">Strikes cluster across five provinces. The pivotal point is the Strait of Hormuz, <span class="chip chip-g">now </span><span class="chip chip-g chip-end">closed<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#2F8A58" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg></span>.</span><span class="vv vc">The strikes cluster across five provinces — and the pivot of it all is the Strait of Hormuz, <span class="chip chip-g">now </span><span class="chip chip-g chip-end">closed<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1856,7 +1856,7 @@ html,body{touch-action:manipulation;overscroll-behavior:none;-webkit-text-size-a
 </svg></div><div class="hd-t">Map</div></div>
 <div class="mapbox" data-map="hk"><svg class="schem" viewBox="0 0 335 300" xmlns="http://www.w3.org/2000/svg"><rect width="335" height="300" fill="#dfe7ea"/><path d="M0 0 H335 V76 C300 94 262 84 230 104 C204 120 170 112 140 124 C104 138 60 124 0 142 Z" fill="#eceeea"/><path d="M40 300 C80 264 140 280 200 258 C250 240 300 262 335 248 V300 Z" fill="#eceeea"/><circle cx="168" cy="150" r="7" fill="#800080" opacity=".6"/><circle cx="196" cy="120" r="6" fill="#800080" opacity=".5"/><circle cx="230" cy="176" r="6" fill="#800080" opacity=".5"/><circle cx="90" cy="130" r="5" fill="#800080" opacity=".4"/></svg><div class="maplive"></div></div>
 <div class="leg"><span><i style="background:#800080"></i>Rent change, H1</span><span><i style="background:#ec4837"></i>Steepest district</span></div>
-<p class="attr">© OpenStreetMap contributors © CARTO</p>
+<p class="attr">© OpenStreetMap contributors · Tiles © Esri</p>
 <div class="para"><span class="vv vp">The squeeze is not even. Districts near universities climb fastest, led by <span class="chip chip-g">Hung Hom at </span><span class="chip chip-g chip-end">+6.2%<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#2F8A58" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg></span>.</span><span class="vv vc">The squeeze isn't even. University districts climb fastest — led by <span class="chip chip-g">Hung Hom at </span><span class="chip chip-g chip-end">+6.2%<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2788,7 +2788,7 @@ html,body{touch-action:manipulation;overscroll-behavior:none;-webkit-text-size-a
 (function(){
   function openSheet(kind, sid){
     var fr = document.getElementById(kind);
-    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=mv7j1rtk'; fr.setAttribute('data-for', sid); }
+    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=mv7k4v0g'; fr.setAttribute('data-for', sid); }
     document.getElementById('layer-' + kind).classList.add('on');
   }
   document.querySelectorAll('.nf-conf[data-story]').forEach(function(el){
@@ -2834,11 +2834,35 @@ html,body{touch-action:manipulation;overscroll-behavior:none;-webkit-text-size-a
     var map = L.map(box.querySelector('.maplive'), { scrollWheelZoom:false, attributionControl:false,
       zoomControl:true, center:cfg.center, zoom:cfg.zoom, maxZoom:11, minZoom:3, dragging:!L.Browser.mobile });
     var loaded = false;
-    var tl = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { subdomains:'abcd', maxZoom:12 });
-    tl.on('load', function(){ loaded = true; box.classList.add('ready'); });
-    tl.on('tileerror', function(){ if(!loaded) box.classList.add('fallback'); });
-    setTimeout(function(){ if(!loaded) box.classList.add('fallback'); }, 6000);
-    tl.addTo(map);
+    /* Basemap providers, tried in order. CARTO's light_all tiles (the original
+       choice) now need an API key and come back as "API KEY REQUIRED" images,
+       which Leaflet counts as a successful load — so it is gone, not merely
+       demoted. Esri's light-gray canvas is the closest keyless match to that
+       look; plain OSM is the fallback if Esri is unreachable. Each entry also
+       carries the credit line the card shows for it. */
+    var PROVIDERS = [
+      { url:'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+        opts:{ maxZoom:16 }, credit:'\u00a9 OpenStreetMap contributors \u00b7 Tiles \u00a9 Esri' },
+      { url:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        opts:{ maxZoom:19 }, credit:'\u00a9 OpenStreetMap contributors' }
+    ];
+    var attr = box.parentNode.querySelector('.attr');
+    var tl = null;
+    function useProvider(n){
+      if(tl){ map.removeLayer(tl); tl = null; }
+      var pv = PROVIDERS[n];
+      if(!pv){ box.classList.add('fallback'); return; }   /* every provider failed: schematic stays */
+      if(attr) attr.textContent = pv.credit;
+      var errs = 0;
+      tl = L.tileLayer(pv.url, pv.opts);
+      tl.on('load', function(){ loaded = true; box.classList.add('ready'); });
+      /* a provider is given up on only before anything from it has shown;
+         one dropped tile after that is just a dropped tile */
+      tl.on('tileerror', function(){ if(!loaded && ++errs >= 2) useProvider(n + 1); });
+      tl.addTo(map);
+    }
+    useProvider(0);
+    setTimeout(function(){ if(!loaded) box.classList.add('fallback'); }, 8000);
     var pts = [];
     (cfg.zones || []).forEach(function(z){
       pts.push(z[0]);
