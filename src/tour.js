@@ -143,15 +143,18 @@
   function box(el, x, y, w, h){ el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.width = w + 'px'; el.style.height = h + 'px'; }
   function place(){
     var step = STEPS[idx]; if (!step) return;
-    var fr = frame.getBoundingClientRect(), FW = fr.width, FH = fr.height;
+    /* the frame may be CSS-scaled (nf-fit): rects come back in viewport px,
+       the shades/tip are positioned in the frame's layout px, so divide by S */
+    var S = window.NF_S || 1;
+    var fr = frame.getBoundingClientRect(), FW = fr.width / S, FH = fr.height / S;
     var hole = null;
     if (step.el) {
       var el = step.el();
       if (el && el.getClientRects().length) {
         var r = el.getBoundingClientRect(), pad = step.pad != null ? step.pad : 6;
-        hole = { x: Math.max(0, r.left - fr.left - pad), y: Math.max(0, r.top - fr.top - pad) };
-        hole.w = Math.min(FW - hole.x, r.width + pad * 2);
-        hole.h = Math.min(FH - hole.y, r.height + pad * 2);
+        hole = { x: Math.max(0, (r.left - fr.left) / S - pad), y: Math.max(0, (r.top - fr.top) / S - pad) };
+        hole.w = Math.min(FW - hole.x, r.width / S + pad * 2);
+        hole.h = Math.min(FH - hole.y, r.height / S + pad * 2);
         if (hole.w < 24 || hole.h < 24) hole = null; /* target off-frame: fall back to centered tip */
       }
     }

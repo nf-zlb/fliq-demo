@@ -5,6 +5,11 @@
   var ST = [];
   var currentClass = 'voice-plain', currentVoice = 'Plain', active = 0;
   var PULL = 460, TABS_HOME = 78, DOCK_H = 44, NAV = 92, HOLD = 140, DELTA = 5;
+  /* nf-fit scales the whole frame with a CSS transform when the page is viewed
+     standalone (iPad, odd windows). getBoundingClientRect() then reports viewport
+     px while offsetHeight/scrollTop/clientHeight stay in layout px — every mix
+     of the two below goes through S() so the maths holds at any scale. */
+  function S(){ return window.NF_S || 1; }
   function lerp(a,b,t){ return a + (b-a)*t; }
   function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
 
@@ -13,7 +18,7 @@
     var hero = st.phone.querySelector('.c-story-hero, .c-s2story-hero');
     var body = st.phone.querySelector('.c-story-body, .c-s2story-body');
     if(!hero || !body || !st.strip) return;
-    var tabsTop = st.strip.getBoundingClientRect().top - nfFrame.getBoundingClientRect().top;
+    var tabsTop = (st.strip.getBoundingClientRect().top - nfFrame.getBoundingClientRect().top) / S();
     var bodyH = body.offsetHeight;
     if(i === 0) hero.style.height = Math.max(220, Math.round(tabsTop + 72 - 16 - bodyH)) + 'px';
     else        hero.style.height = Math.max(220, Math.round(tabsTop - 16 - 16 - bodyH)) + 'px';
@@ -23,7 +28,7 @@
     var card = st.overlay.querySelector('.s2-card');
     var tb = st.overlay.querySelector('.s2-bottom .nf-tabs');
     if(!card || !tb) return;
-    var tabsTop = tb.getBoundingClientRect().top - st.overlay.getBoundingClientRect().top;
+    var tabsTop = (tb.getBoundingClientRect().top - st.overlay.getBoundingClientRect().top) / S();
     st.HERO_DEF = Math.max(220, Math.round(tabsTop - 16 - 16 - card.offsetHeight));
     if(st.phone.classList.contains('at-end')) doExpand(i);
   }
@@ -223,7 +228,7 @@
     }catch(e){}
 
     function activeIdx(){
-      var line = phone.getBoundingClientRect().top + NAV + 1, idx = 0;
+      var line = phone.getBoundingClientRect().top + (NAV + 1) * S(), idx = 0;
       for(var k=0;k<secs.length;k++){ if(secs[k].getBoundingClientRect().top <= line) idx = k; else break; }
       return idx;
     }
@@ -300,7 +305,7 @@
     phone.addEventListener('touchmove', function(e){
       if(st.prevIdx == null || st.backBusy || tStartY == null) return;
       if(phone.scrollTop > 2) return;
-      if(e.touches[0].clientY - tStartY > 64){ tStartY = null; goBack(i); }
+      if(e.touches[0].clientY - tStartY > 64 * S()){ tStartY = null; goBack(i); }
     }, { passive:true });
 
     spy();
@@ -323,7 +328,7 @@
   if(_cue && _feedScroll && _essential){
     _cue.addEventListener('click', function(){
       var r = _essential.getBoundingClientRect(), sr = _feedScroll.getBoundingClientRect();
-      _feedScroll.scrollTo({ top: _feedScroll.scrollTop + (r.top - sr.top) - 12, behavior:'smooth' });
+      _feedScroll.scrollTo({ top: _feedScroll.scrollTop + (r.top - sr.top) / S() - 12, behavior:'smooth' });
     });
     _cue.style.cursor = 'pointer';
   }
@@ -381,7 +386,7 @@
       if(opening){
         setTimeout(function(){
           var r = sec.getBoundingClientRect(), sc = sec.closest('.nf-phone');
-          if(sc && r.bottom > sc.clientHeight) sec.scrollIntoView({behavior:'smooth', block:'nearest'});
+          if(sc && r.bottom > sc.getBoundingClientRect().bottom) sec.scrollIntoView({behavior:'smooth', block:'nearest'});
         }, 380);
       }
     }

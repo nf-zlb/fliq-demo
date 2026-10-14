@@ -342,6 +342,7 @@ const KIT_CSS = fs.readFileSync("src/kit.css", "utf8");
 const KIT_JS = fs.readFileSync("src/kit.js", "utf8");
 const TOUR_CSS = fs.readFileSync("src/tour.css", "utf8");
 const TOUR_JS = fs.readFileSync("src/tour.js", "utf8");
+const FIT_JS = fs.readFileSync("src/fit.js", "utf8");
 
 const COUNTER_CSS = lang => `
 /* 4-story counter overrides */
@@ -369,6 +370,17 @@ ${COUNTER_CSS(lang)}
 html,body{height:100%;overflow:hidden}
 body{display:block;padding:0;min-height:0}
 .nf-frame{margin:0;border-radius:0;box-shadow:none}
+/* nf-fit: standalone on an iPad / phone / odd window the frame is CSS-scaled
+   to the viewport and centred (src/fit.js sets the vars before first paint);
+   inside the shell iframe the vars stay at their defaults and nothing moves.
+   The frame is taken out of flow so centring can't make the document taller
+   than the viewport (the nf-flush scrollbar problem above). */
+.nf-frame{position:absolute;left:0;top:0;transform-origin:0 0;
+  transform:translate(var(--nf-x,0px),var(--nf-y,0px)) scale(var(--nf-s,1))}
+html.nf-boxed .nf-frame{border-radius:40px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+/* iPad Safari: no double-tap zoom / rubber-band on the page itself — the frame
+   owns every gesture (its own scrollers still pan and pinch normally) */
+html,body{touch-action:manipulation;overscroll-behavior:none;-webkit-text-size-adjust:100%}
 /* tariff hero is portrait with a caption baked into its lower third:
    anchor its crop to the top so the subject shows and the caption crops away */
 .mcard[data-story="3"] .media{background-position:center top!important}
@@ -392,6 +404,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 /* Noto Serif HK must precede the generic serif keyword or CJK never reaches it */
 .voice-calm .para,.voice-calm .conn-t{font-family:'New York','Source Serif 4','Noto Serif HK',serif!important}` : ""}
 </style>
+<script>${FIT_JS}</scr` + `ipt>
 </head>
 <body>`;
 }

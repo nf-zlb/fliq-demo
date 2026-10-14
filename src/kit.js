@@ -167,10 +167,13 @@
       ev.stopPropagation(); save.textContent = ZH ? '已儲存 ✓' : 'Saved ✓'; save.disabled = true;
     });
     pop.classList.add('on');
+    /* rects are viewport px; the frame may be CSS-scaled (nf-fit), so bring
+       them back to layout px before mixing with scrollTop/offsetWidth */
+    var S = window.NF_S || 1;
     var hr = host.getBoundingClientRect(), r = el.getBoundingClientRect();
-    var top = r.top - hr.top + host.scrollTop - pop.offsetHeight - 10;
-    if(top < host.scrollTop + 8) top = r.bottom - hr.top + host.scrollTop + 10;
-    var left = Math.min(Math.max(8, r.left - hr.left + r.width/2 - pop.offsetWidth/2), 375 - pop.offsetWidth - 8);
+    var top = (r.top - hr.top) / S + host.scrollTop - pop.offsetHeight - 10;
+    if(top < host.scrollTop + 8) top = (r.bottom - hr.top) / S + host.scrollTop + 10;
+    var left = Math.min(Math.max(8, (r.left - hr.left + r.width/2) / S - pop.offsetWidth/2), 375 - pop.offsetWidth - 8);
     pop.style.top = top + 'px'; pop.style.left = left + 'px';
   }, false);
   document.querySelectorAll('.nf-phone,.scroll').forEach(function(p){

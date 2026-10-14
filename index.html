@@ -74,10 +74,14 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
   transform-origin:top left;transform:scale(var(--s,1))}
 .m-phone .device iframe{width:375px;height:var(--dh,812px)}
 
-/* tablets (iPad): keep the framed device, scaled up to use the screen */
+/* tablets (iPad): keep the framed device, scaled up to use the screen.
+   The transform doesn't change the device's layout box, so the margins grow
+   it to the scaled size — otherwise the flex row centres on the 375x812 box
+   and the enlarged device paints over the rail (seen on iPad Pro portrait). */
 .m-tablet,.m-tablet body{overflow:hidden;height:100%}
 .m-tablet body{padding:16px;gap:28px}
-.m-tablet .device{transform:scale(var(--s,1));transform-origin:center center}
+.m-tablet .device{transform:scale(var(--s,1));transform-origin:center center;
+  margin:calc(406px * (var(--s,1) - 1)) calc(187.5px * (var(--s,1) - 1))}
 .m-tablet .rail p{max-width:220px;font-size:14px;line-height:20px}
 .m-tablet .rail .brand span{font-size:22px}
 </style>
@@ -125,7 +129,7 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
       ? "更冷靜的看新聞方式——揀聲線、拉下一篇、查可信度。"
       : "A calmer way to follow the news — pick a voice, pull the next story open, check the signal.";
   }
-  var NF_BUILD="msx9knam";
+  var NF_BUILD="mv7j1rtk";
   function boot(){ if(booted) return; booted=true; setLangUI(); app.src=lang+"/app.html?b="+NF_BUILD; }
   function switchLang(l){
     if(!LANGS[l]) return;
@@ -149,8 +153,17 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
     var root=document.documentElement;
     var w=window.innerWidth, h2=window.innerHeight;
     var coarse=window.matchMedia("(hover:none) and (pointer:coarse)").matches;
-    var phone = w<=820 || (coarse && w<=900);
-    var tablet = !phone && coarse;
+    /* iPadOS Safari identifies as a Mac ("Request Desktop Website" is its
+       default) — the touch-point count is what tells an iPad from a Mac */
+    var ua=navigator.userAgent||"";
+    var ipad=/iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints>1);
+    /* a touch device whose SHORT side is tablet-sized is a tablet in either
+       orientation: an iPad Pro 11" is 834px wide in portrait, which the old
+       width-only rule (<=900) treated as a phone and squashed to a 537px-tall
+       device around an 812px-tall app */
+    var tabletDev = (coarse || ipad) && Math.min(w,h2)>=600;
+    var phone = !tabletDev && (w<=820 || (coarse && w<=900));
+    var tablet = tabletDev || (!phone && coarse);
     root.classList.toggle("m-phone", phone);
     root.classList.toggle("m-tablet", tablet);
     if(phone){
@@ -158,7 +171,8 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
       root.style.setProperty("--s", s);
       root.style.setProperty("--dh", Math.ceil(h2/s)+"px");
     } else if(tablet){
-      var s2=Math.min((h2-32)/812, (w-268)/375, 1.75);
+      /* fit the height, and leave room for padding + gap + the 220px rail */
+      var s2=Math.min((h2-32)/812, (w-280)/375, 1.75);
       root.style.setProperty("--s", s2);
       root.style.setProperty("--dh","812px");
     } else {
